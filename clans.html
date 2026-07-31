@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Все герои</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Jura:wght@500;600;700&family=Russo+One&family=Unbounded:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="icon" href="icon.png" type="image/x-icon">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      color-scheme: dark;
+      --bg-deep: #07050c;
+      --gold: #e9b95f;
+      --gold-soft: #f2d28e;
+      --gold-bright: #ffe8af;
+      --cream: #fff5d6;
+      --text-muted: rgba(255, 244, 216, 0.62);
+      --purple: #b16ce7;
+      --border: rgba(236, 192, 103, 0.72);
+    }
+
+    html {
+      min-height: 100%;
+      scroll-behavior: smooth;
+      background: var(--bg-deep);
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--cream);
+      font-family: "Jura", sans-serif;
+      background:
+        linear-gradient(115deg, rgba(4, 3, 8, 0.97), rgba(20, 10, 31, 0.92)),
+        radial-gradient(circle at 78% 20%, rgba(239, 177, 71, 0.18), transparent 27%),
+        radial-gradient(circle at 22% 82%, rgba(160, 74, 219, 0.17), transparent 32%),
+        url("fantasy-bg.jpg") center / cover fixed no-repeat,
+        #07050c;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 8% 18%, #fff0bd 0 1px, transparent 1.7px),
+        radial-gradient(circle at 31% 11%, #ffe3a0 0 1px, transparent 1.7px),
+        radial-gradient(circle at 48% 41%, #d59cff 0 1px, transparent 1.7px),
+        radial-gradient(circle at 78% 31%, #bb6dec 0 1px, transparent 1.7px),
+        radial-gradient(circle at 91% 57%, #efba62 0 1px, transparent 1.7px);
+      opacity: 0.48;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .screen {
+      position: relative;
+      z-index: 1;
+      width: min(1260px, 100%);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 22px 26px 38px;
+    }
+
+    .page-top {
+      margin-bottom: 20px;
+    }
+
+    .back-button {
+      min-height: 48px;
+      padding: 12px 22px;
+      color: var(--gold-bright);
+      cursor: pointer;
+      font-family: "Russo One", sans-serif;
+      font-size: 14px;
+      border: 1px solid rgba(239, 198, 112, 0.82);
+      border-radius: 15px 4px 15px 4px;
+      background: linear-gradient(180deg, rgba(234, 184, 87, 0.24), rgba(42, 23, 50, 0.95) 48%, rgba(12, 8, 19, 0.99));
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.11);
+      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .back-button:hover,
+    .back-button:focus-visible {
+      transform: translateY(-3px);
+      border-color: var(--gold-bright);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.42), 0 0 18px rgba(239, 198, 112, 0.18);
+    }
+
+    .game-panel {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(22px, 3vw, 36px);
+      border: 1px solid var(--border);
+      border-radius: 25px 7px 25px 7px;
+      background:
+        radial-gradient(circle at 86% 8%, rgba(235, 184, 92, 0.13), transparent 29%),
+        radial-gradient(circle at 12% 100%, rgba(158, 74, 214, 0.11), transparent 32%),
+        linear-gradient(115deg, rgba(10, 7, 16, 0.98), rgba(39, 21, 48, 0.96) 58%, rgba(26, 15, 34, 0.98));
+      box-shadow: 0 26px 58px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    }
+
+    .game-panel::before {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      pointer-events: none;
+      border: 1px solid rgba(255, 240, 199, 0.15);
+      border-radius: 17px 4px 17px 4px;
+    }
+
+    .page-heading {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(238, 197, 113, 0.2);
+    }
+
+    .page-heading p {
+      margin-bottom: 8px;
+      color: var(--text-muted);
+      font-family: "Russo One", sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    .page-heading h1 {
+      color: var(--cream);
+      font-family: "Unbounded", sans-serif;
+      font-size: clamp(34px, 4vw, 58px);
+      line-height: 1.05;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.86), 0 0 18px rgba(255, 218, 137, 0.3);
+    }
+
+    .slider-area {
+      position: relative;
+      z-index: 2;
+    }
+
+    #slidesContainer {
+      position: relative;
+      min-height: 620px;
+    }
+
+    .hero-slide {
+      display: none;
+      min-height: 620px;
+      animation: slide-enter 280ms ease-out both;
+    }
+
+    .hero-slide.active {
+      display: block;
+    }
+
+    .hero-card {
+      width: min(620px, 100%);
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid rgba(238, 197, 113, 0.58);
+      border-radius: 24px 7px 24px 7px;
+      background:
+        radial-gradient(circle at 50% 24%, rgba(255, 223, 151, 0.17), transparent 28%),
+        linear-gradient(180deg, rgba(55, 31, 64, 0.94), rgba(10, 7, 17, 0.99));
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.46), inset 0 0 34px rgba(0, 0, 0, 0.42);
+    }
+
+    .hero-photo-wrap {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      min-height: 520px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255, 223, 151, 0.17), transparent 30%),
+        linear-gradient(180deg, rgba(55, 31, 64, 0.94), rgba(10, 7, 17, 0.99));
+    }
+
+    .hero-photo-wrap::before {
+      content: "";
+      position: absolute;
+      z-index: 3;
+      inset: 6px;
+      pointer-events: none;
+      border: 1px solid rgba(255, 242, 211, 0.16);
+      border-radius: 18px 4px 18px 4px;
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    .hero-card:hover .hero-photo {
+      transform: scale(1.035);
+    }
+
+    .hero-placeholder {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(255, 232, 175, 0.38);
+    }
+
+    .hero-placeholder svg {
+      width: 130px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.4;
+      stroke-linecap: round;
+    }
+
+    .hero-name {
+      padding: 22px 20px 25px;
+      color: var(--cream);
+      text-align: center;
+      font-family: "Unbounded", sans-serif;
+      font-size: clamp(25px, 3vw, 40px);
+      line-height: 1.15;
+      border-top: 1px solid rgba(238, 197, 113, 0.2);
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.84), 0 0 16px rgba(255, 218, 137, 0.22);
+      overflow-wrap: anywhere;
+    }
+
+    .slider-controls {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 15px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(238, 197, 113, 0.17);
+    }
+
+    .slider-button {
+      min-height: 44px;
+      padding: 11px 17px;
+      color: var(--gold-bright);
+      cursor: pointer;
+      font-family: "Russo One", sans-serif;
+      font-size: 13px;
+      border: 1px solid rgba(239, 198, 112, 0.65);
+      border-radius: 14px 4px 14px 4px;
+      background: linear-gradient(180deg, rgba(234, 184, 87, 0.19), rgba(42, 23, 50, 0.92) 48%, rgba(12, 8, 19, 0.98));
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.31), inset 0 1px 0 rgba(255, 255, 255, 0.09);
+      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .slider-button:hover,
+    .slider-button:focus-visible {
+      transform: translateY(-3px);
+      border-color: var(--gold-bright);
+      box-shadow: 0 15px 28px rgba(0, 0, 0, 0.38), 0 0 17px rgba(239, 198, 112, 0.15);
+    }
+
+    .slider-dots {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .slider-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 1px solid rgba(239, 198, 112, 0.54);
+      background: rgba(255, 255, 255, 0.07);
+      transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .slider-dot:hover,
+    .slider-dot:focus-visible {
+      transform: scale(1.18);
+      border-color: var(--gold-bright);
+    }
+
+    .slider-dot.active {
+      transform: scale(1.22);
+      border-color: var(--gold-bright);
+      background: var(--gold);
+      box-shadow: 0 0 12px rgba(239, 198, 112, 0.48);
+    }
+
+    .slide-counter {
+      min-width: 78px;
+      color: var(--text-muted);
+      text-align: right;
+      font-family: "Russo One", sans-serif;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    @keyframes slide-enter {
+      from {
+        opacity: 0;
+        transform: translateX(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .screen {
+        padding: 14px;
+      }
+
+      #slidesContainer,
+      .hero-slide {
+        min-height: 0;
+      }
+
+      .hero-photo-wrap {
+        min-height: clamp(380px, 112vw, 570px);
+      }
+
+      .slider-controls {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .slider-button {
+        width: 100%;
+        font-size: 11px;
+      }
+
+      .slider-dots {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+
+      .slide-counter {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+
+    /* =========================================================
+       КОМПАКТНЫЙ РЕЖИМ ДЛЯ 1920x1080 БЕЗ ВЕРТИКАЛЬНОГО СКРОЛЛА
+       Содержимое и способ отображения фотографий не изменяются.
+    ========================================================= */
+    @media (min-width: 1200px) and (min-height: 800px) {
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .screen {
+        width: min(1180px, 100%);
+        height: 100vh;
+        min-height: 0;
+        padding: 12px 22px 14px;
+
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .page-top {
+        margin-bottom: 0;
+      }
+
+      .back-button {
+        min-height: 38px;
+        padding: 8px 17px;
+        font-size: 12px;
+      }
+
+      .game-panel {
+        min-height: 0;
+        height: 100%;
+        padding: 14px 20px 15px;
+
+        display: flex;
+        flex-direction: column;
+      }
+
+      .page-heading {
+        flex: 0 0 auto;
+        margin-bottom: 9px;
+        padding-bottom: 9px;
+      }
+
+      .page-heading p {
+        margin-bottom: 3px;
+        font-size: 10px;
+      }
+
+      .page-heading h1 {
+        font-size: 34px;
+      }
+
+      .slider-area {
+        flex: 1 1 auto;
+        min-height: 0;
+
+        display: flex;
+        flex-direction: column;
+      }
+
+      #slidesContainer {
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+
+      .hero-slide {
+        min-height: 0;
+        height: 100%;
+      }
+
+      .hero-slide.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-card {
+        width: min(460px, 100%);
+        margin: 0 auto;
+      }
+
+      .hero-photo-wrap {
+        min-height: 0;
+        aspect-ratio: 4 / 5;
+      }
+
+      .hero-name {
+        padding: 11px 16px 13px;
+        font-size: 25px;
+        line-height: 1.1;
+      }
+
+      .slider-controls {
+        flex: 0 0 auto;
+        gap: 10px;
+        margin-top: 9px;
+        padding-top: 9px;
+      }
+
+      .slider-button {
+        min-height: 36px;
+        padding: 7px 13px;
+        font-size: 11px;
+      }
+
+      .slider-dots {
+        gap: 6px;
+      }
+
+      .slider-dot {
+        width: 10px;
+        height: 10px;
+      }
+
+      .slide-counter {
+        min-width: 70px;
+        font-size: 11px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <main class="screen">
+    <div class="page-top">
+      <button class="back-button" onclick="goBack()">← Назад</button>
+    </div>
+
+    <section class="game-panel">
+      <header class="page-heading">
+        <p>КОМАНДА ГЕРОИНИ</p>
+        <h1>Все герои</h1>
+      </header>
+
+      <div class="slider-area">
+        <div id="slidesContainer"></div>
+
+        <div class="slider-controls">
+          <button class="slider-button" type="button" onclick="prevSlide()">← Предыдущий</button>
+
+          <div class="slider-dots" id="sliderDots"></div>
+
+          <div class="slide-counter" id="slideCounter">1 / 16</div>
+
+          <button class="slider-button" type="button" onclick="nextSlide()">Следующий →</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const heroes = [
+      { name: 'Любимый муж', photo: 'papa.png' },
+      { name: 'Родители', photo: 'luch.png' },
+      { name: 'Старшая дочь', photo: 'me.png' },
+      { name: 'Средняя дочь', photo: 'arina.png' },
+      { name: 'Младший сын', photo: 'lyonya.png' },
+      { name: 'Семья Мазуровых', photo: 'maz.png' },
+      { name: 'Семья Мазуровых', photo: 'mazz.png' },
+      { name: 'Свёкр и свекровь', photo: 'bor.png' },
+      { name: 'Николай Борисов', photo: 'kolya.png' },
+      { name: 'Семья Шмаковых', photo: 'shmak.png' },
+      { name: 'Семья Максаковых', photo: 'kras.png' },
+      { name: 'Семья Мачневых', photo: 'mach.png' },
+      { name: 'Семья Симоновых', photo: 'sim.png' },
+      { name: 'Оксана Мухина', photo: 'muh.png' },
+      { name: 'Семья Семёновых', photo: 'sem.png' },
+      { name: 'Семья Новосёловых', photo: 'nov.png' },
+      { name: 'Семья Ефимкиных', photo: 'ger.png' }
+    ];
+
+    let currentSlide = 0;
+
+    const slidesContainer = document.getElementById("slidesContainer");
+    const sliderDots = document.getElementById("sliderDots");
+    const slideCounter = document.getElementById("slideCounter");
+
+    function renderSlides() {
+      slidesContainer.innerHTML = "";
+
+      heroes.forEach((hero, index) => {
+        const slide = document.createElement("article");
+        slide.className = "hero-slide";
+        slide.dataset.index = index;
+
+        const imageMarkup = hero.photo
+          ? `
+              <img
+                src="${hero.photo}"
+                alt="${hero.name}"
+                class="hero-photo"
+                onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
+              >
+            
+            `
+          : `
+              <div class="hero-placeholder">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
+                  <circle cx="32" cy="23" r="12"></circle>
+                  <path d="M12 57c2-15 10-23 20-23s18 8 20 23"></path>
+                </svg>
+              </div>
+            `;
+
+        slide.innerHTML = `
+          <div class="hero-card">
+            <div class="hero-photo-wrap">
+              ${imageMarkup}
+            </div>
+            <h2 class="hero-name">${hero.name}</h2>
+          </div>
+        `;
+
+        slidesContainer.appendChild(slide);
+      });
+    }
+
+    function renderDots() {
+      sliderDots.innerHTML = "";
+
+      heroes.forEach((hero, index) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "slider-dot";
+        dot.setAttribute("aria-label", `Открыть героя ${index + 1}`);
+        dot.onclick = () => {
+          currentSlide = index;
+          updateSlider();
+        };
+
+        sliderDots.appendChild(dot);
+      });
+    }
+
+    function updateSlider() {
+      const slides = document.querySelectorAll(".hero-slide");
+      const dots = document.querySelectorAll(".slider-dot");
+
+      slides.forEach((slide, index) => {
+        slide.classList.toggle("active", index === currentSlide);
+      });
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === currentSlide);
+      });
+
+      slideCounter.textContent = `${currentSlide + 1} / ${heroes.length}`;
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % heroes.length;
+      updateSlider();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + heroes.length) % heroes.length;
+      updateSlider();
+    }
+
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "index.html";
+      }
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") nextSlide();
+      if (event.key === "ArrowLeft") prevSlide();
+    });
+
+    renderSlides();
+    renderDots();
+    updateSlider();
+  </script>
+</body>
+</html>

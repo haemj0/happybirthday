@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Достижения</title>
+
+  <!-- Игровые шрифты -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Jura:wght@400;500;600;700&family=Russo+One&family=Unbounded:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="icon" href="icon.png" type="image/x-icon">
+
+  <style>
+  /* =========================================================
+     СБРОС И БАЗОВЫЕ ПЕРЕМЕННЫЕ
+  ========================================================= */
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    color-scheme: dark;
+
+    --bg-main: #08060d;
+    --bg-deep: #0d0815;
+    --bg-purple: #21112d;
+
+    --panel: rgba(18, 12, 27, 0.96);
+    --panel-light: rgba(43, 24, 53, 0.92);
+
+    --gold: #eabf6b;
+    --gold-light: #ffe4a3;
+    --gold-bright: #fff2c7;
+    --gold-dark: #7d4b1e;
+
+    --text: #fff5d8;
+    --text-soft: rgba(255, 245, 216, 0.84);
+    --text-muted: rgba(255, 245, 216, 0.62);
+
+    --purple: #a760db;
+    --purple-light: #d19aff;
+    --pink: #ef69b8;
+    --blue: #68b7ff;
+    --green: #85d761;
+    --cyan: #55d7c6;
+    --orange: #ed9d4d;
+
+    --border: rgba(238, 197, 113, 0.7);
+    --border-soft: rgba(255, 234, 188, 0.16);
+
+    --radius-panel: 24px 7px 24px 7px;
+    --radius-card: 20px 6px 20px 6px;
+
+    --shadow-panel:
+      0 24px 55px rgba(0, 0, 0, 0.46),
+      0 8px 20px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+
+    --shadow-card:
+      0 14px 28px rgba(0, 0, 0, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+    --fast: 160ms ease;
+    --normal: 260ms ease;
+  }
+
+
+  /* =========================================================
+     ОСНОВА СТРАНИЦЫ
+  ========================================================= */
+
+  html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+    background: var(--bg-main);
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    color: var(--text);
+    font-family: "Jura", sans-serif;
+
+    background-color: var(--bg-main);
+    background-image:
+      linear-gradient(
+        115deg,
+        rgba(5, 4, 10, 0.97) 0%,
+        rgba(16, 9, 25, 0.91) 42%,
+        rgba(29, 14, 39, 0.65) 72%,
+        rgba(7, 6, 12, 0.74) 100%
+      ),
+      radial-gradient(
+        circle at 76% 24%,
+        rgba(246, 192, 96, 0.17),
+        transparent 27%
+      ),
+      radial-gradient(
+        circle at 25% 78%,
+        rgba(152, 73, 215, 0.15),
+        transparent 32%
+      ),
+      url("fantasy-bg.jpg"),
+      linear-gradient(135deg, #15111f, #3a204a 50%, #111522);
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.035),
+        transparent 20%,
+        rgba(0, 0, 0, 0.46)
+      ),
+      radial-gradient(
+        ellipse at center,
+        transparent 35%,
+        rgba(0, 0, 0, 0.42) 100%
+      );
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: -24px;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.52;
+
+    background-image:
+      radial-gradient(circle at 8% 18%, #fff0bd 0 1px, transparent 1.6px),
+      radial-gradient(circle at 17% 63%, #ba7bf2 0 1px, transparent 1.6px),
+      radial-gradient(circle at 31% 11%, #ffe4a3 0 1px, transparent 1.6px),
+      radial-gradient(circle at 48% 41%, #d49cff 0 1px, transparent 1.6px),
+      radial-gradient(circle at 62% 16%, #fff3c9 0 1px, transparent 1.6px),
+      radial-gradient(circle at 78% 31%, #b96dea 0 1px, transparent 1.6px),
+      radial-gradient(circle at 91% 57%, #f0bb63 0 1px, transparent 1.6px),
+      radial-gradient(circle at 73% 85%, #fff0bd 0 1px, transparent 1.6px);
+
+    transform: translate3d(0, 0, 0);
+    animation: stars-drift 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes stars-drift {
+    from {
+      opacity: 0.38;
+      transform: translate3d(0, 0, 0);
+    }
+
+    to {
+      opacity: 0.62;
+      transform: translate3d(11px, -14px, 0);
+    }
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button {
+    font: inherit;
+  }
+
+  svg,
+  img {
+    display: block;
+  }
+
+
+  /* =========================================================
+     ОСНОВНОЙ КОНТЕЙНЕР
+  ========================================================= */
+
+  .screen {
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+
+    width: 100%;
+    min-height: 100vh;
+    padding: 22px 26px 36px;
+  }
+
+
+  /* =========================================================
+     МАГИЧЕСКИЕ ЧАСТИЦЫ
+  ========================================================= */
+
+  .magic-orb {
+    position: fixed;
+    z-index: 0;
+
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+
+    pointer-events: none;
+    opacity: 0.7;
+
+    transform: translate3d(0, 0, 0);
+    animation: orb-float 9s ease-in-out infinite;
+  }
+
+  .orb-1 {
+    left: 9%;
+    top: 82%;
+
+    background: var(--gold-light);
+
+    box-shadow:
+      0 0 8px var(--gold-light),
+      0 0 20px rgba(255, 220, 145, 0.52);
+
+    animation-delay: -1s;
+  }
+
+  .orb-2 {
+    left: 54%;
+    top: 17%;
+
+    background: var(--purple-light);
+
+    box-shadow:
+      0 0 8px var(--purple-light),
+      0 0 20px rgba(194, 126, 245, 0.5);
+
+    animation-delay: -3s;
+  }
+
+  .orb-3 {
+    left: 86%;
+    top: 70%;
+
+    background: var(--cyan);
+
+    box-shadow:
+      0 0 8px var(--cyan),
+      0 0 20px rgba(85, 215, 198, 0.46);
+
+    animation-delay: -5s;
+  }
+
+  .orb-4 {
+    left: 38%;
+    top: 64%;
+
+    width: 4px;
+    height: 4px;
+
+    background: #ffffff;
+
+    box-shadow:
+      0 0 8px #ffffff,
+      0 0 18px rgba(255, 255, 255, 0.48);
+
+    animation-delay: -7s;
+  }
+
+  @keyframes orb-float {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: translate3d(0, 0, 0) scale(0.85);
+    }
+
+    50% {
+      opacity: 1;
+      transform: translate3d(14px, -32px, 0) scale(1.18);
+    }
+  }
+
+
+  /* =========================================================
+     SVG
+  ========================================================= */
+
+  .svg-sprite {
+    display: none;
+  }
+
+  .game-icon {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 auto;
+
+    color: currentColor;
+
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
+
+    transition:
+      transform var(--fast),
+      color var(--fast);
+  }
+
+
+  /* =========================================================
+     ВЕРХНЯЯ ЧАСТЬ СТРАНИЦЫ
+  ========================================================= */
+
+  .page-top {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+
+    margin-bottom: 20px;
+
+    animation: page-enter 480ms ease-out both;
+  }
+
+  .back-button {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    min-height: 48px;
+    padding: 12px 22px;
+
+    color: var(--gold-bright);
+    cursor: pointer;
+
+    font-family: "Russo One", sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+
+    border: 1px solid rgba(239, 198, 112, 0.8);
+    border-radius: 15px 4px 15px 4px;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(234, 184, 87, 0.23),
+        rgba(38, 23, 47, 0.92) 48%,
+        rgba(12, 9, 19, 0.98)
+      );
+
+    box-shadow:
+      0 12px 26px rgba(0, 0, 0, 0.36),
+      inset 0 1px 0 rgba(255, 255, 255, 0.11);
+
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+
+    transform: translate3d(0, 0, 0);
+
+    transition:
+      transform var(--fast),
+      border-color var(--fast),
+      box-shadow var(--fast);
+  }
+
+  .back-button::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 5px;
+    pointer-events: none;
+
+    border: 1px solid rgba(255, 241, 204, 0.14);
+    border-radius: 11px 3px 11px 3px;
+  }
+
+  .back-button::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+
+    top: -70%;
+    bottom: -70%;
+    left: -45%;
+    width: 32%;
+
+    pointer-events: none;
+
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.26),
+      transparent
+    );
+
+    transform: translate3d(-220%, 0, 0) rotate(15deg);
+    transition: transform 520ms ease;
+  }
+
+  .back-button:hover,
+  .back-button:focus-visible {
+    transform: translate3d(0, -3px, 0);
+
+    border-color: var(--gold-light);
+
+    box-shadow:
+      0 16px 32px rgba(0, 0, 0, 0.42),
+      0 0 18px rgba(239, 198, 112, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .back-button:hover::after,
+  .back-button:focus-visible::after {
+    transform: translate3d(520%, 0, 0) rotate(15deg);
+  }
+
+  .back-button:active {
+    transform: translate3d(0, -1px, 0) scale(0.98);
+  }
+
+  .back-button:focus-visible {
+    outline: 2px solid var(--gold-light);
+    outline-offset: 4px;
+  }
+
+
+  /* =========================================================
+     ВЕРХНЕЕ МЕНЮ
+  ========================================================= */
+
+  .top-menu {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 10px;
+
+    margin-bottom: 24px;
+
+    animation: page-enter 520ms 60ms ease-out both;
+  }
+
+  .menu-tab {
+    --tab-color: 235, 190, 100;
+    --cut: 11px;
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    min-width: 0;
+    min-height: 70px;
+    padding: 10px 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    color: var(--text);
+    text-decoration: none;
+    text-align: center;
+
+    font-family: "Russo One", sans-serif;
+    font-size: clamp(10px, 0.8vw, 14px);
+    line-height: 1.2;
+    letter-spacing: 0.3px;
+
+    border: 1px solid rgba(var(--tab-color), 0.72);
+
+    clip-path: polygon(
+      var(--cut) 0,
+      100% 0,
+      100% calc(100% - var(--cut)),
+      calc(100% - var(--cut)) 100%,
+      0 100%,
+      0 var(--cut)
+    );
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(var(--tab-color), 0.22),
+        rgba(43, 26, 52, 0.93) 44%,
+        rgba(12, 9, 20, 0.98)
+      );
+
+    box-shadow:
+      0 11px 24px rgba(0, 0, 0, 0.34),
+      inset 0 1px 0 rgba(255, 255, 255, 0.11);
+
+    text-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.82),
+      0 0 10px rgba(var(--tab-color), 0.16);
+
+    transform: translate3d(0, 0, 0);
+
+    transition:
+      transform var(--fast),
+      border-color var(--fast),
+      box-shadow var(--fast);
+  }
+
+  .menu-tab::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 5px;
+    pointer-events: none;
+
+    clip-path: inherit;
+    border: 1px solid rgba(255, 244, 211, 0.14);
+  }
+
+  .menu-tab::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+
+    top: -50%;
+    bottom: -50%;
+    left: -45%;
+    width: 34%;
+
+    pointer-events: none;
+
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.24),
+      transparent
+    );
+
+    transform: translate3d(-220%, 0, 0) rotate(14deg);
+    transition: transform 520ms ease;
+  }
+
+  .menu-tab:hover,
+  .menu-tab:focus-visible {
+    transform: translate3d(0, -3px, 0);
+
+    border-color: rgba(var(--tab-color), 1);
+
+    box-shadow:
+      0 15px 30px rgba(0, 0, 0, 0.42),
+      0 0 18px rgba(var(--tab-color), 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .menu-tab:hover::after,
+  .menu-tab:focus-visible::after {
+    transform: translate3d(520%, 0, 0) rotate(14deg);
+  }
+
+  .menu-tab:hover .game-icon,
+  .menu-tab:focus-visible .game-icon {
+    transform: translate3d(0, -2px, 0) scale(1.08) rotate(-3deg);
+  }
+
+  .menu-tab:focus-visible {
+    outline: 2px solid rgba(var(--tab-color), 0.95);
+    outline-offset: 4px;
+  }
+
+  .tab-gold {
+    --tab-color: 244, 200, 105;
+  }
+
+  .tab-brown {
+    --tab-color: 201, 120, 76;
+  }
+
+  .tab-blue {
+    --tab-color: 91, 152, 241;
+  }
+
+  .tab-purple {
+    --tab-color: 177, 95, 234;
+  }
+
+  .tab-green {
+    --tab-color: 73, 204, 180;
+  }
+
+  .tab-amber {
+    --tab-color: 237, 155, 69;
+  }
+
+  .tab-navy {
+    --tab-color: 91, 123, 220;
+  }
+
+
+  /* =========================================================
+     ОБЩАЯ ИГРОВАЯ ПАНЕЛЬ
+  ========================================================= */
+
+  .game-panel {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-panel);
+
+    background:
+      radial-gradient(
+        circle at 86% 10%,
+        rgba(235, 184, 92, 0.12),
+        transparent 30%
+      ),
+      radial-gradient(
+        circle at 12% 100%,
+        rgba(158, 74, 214, 0.1),
+        transparent 32%
+      ),
+      linear-gradient(
+        115deg,
+        rgba(11, 8, 17, 0.97),
+        rgba(39, 22, 48, 0.94) 58%,
+        rgba(27, 16, 35, 0.96)
+      );
+
+    box-shadow: var(--shadow-panel);
+  }
+
+  .game-panel::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 7px;
+    pointer-events: none;
+
+    border: 1px solid rgba(255, 240, 199, 0.15);
+    border-radius: 17px 4px 17px 4px;
+  }
+
+  .game-panel::after {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    pointer-events: none;
+
+    background:
+      linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.07),
+        transparent 27%
+      ),
+      repeating-linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.012) 0 1px,
+        transparent 1px 12px
+      );
+  }
+
+
+  /* =========================================================
+     СЕКЦИЯ ДОСТИЖЕНИЙ
+  ========================================================= */
+
+  .achievements-page {
+    padding: clamp(22px, 2.2vw, 34px);
+
+    animation: page-enter 580ms 100ms ease-out both;
+  }
+
+  .achievements-header {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    margin-bottom: 28px;
+    padding-bottom: 22px;
+
+    border-bottom: 1px solid rgba(238, 197, 113, 0.2);
+  }
+
+  .achievements-header::after {
+    content: "";
+    position: absolute;
+
+    left: 0;
+    bottom: -1px;
+
+    width: min(310px, 55%);
+    height: 1px;
+
+    background: linear-gradient(
+      90deg,
+      var(--gold-light),
+      rgba(177, 95, 234, 0.52),
+      transparent
+    );
+
+    box-shadow: 0 0 12px rgba(238, 197, 113, 0.34);
+  }
+
+  .small-label {
+    position: relative;
+    z-index: 2;
+
+    margin-bottom: 8px;
+
+    color: var(--text-muted);
+
+    font-family: "Russo One", sans-serif;
+    font-size: clamp(11px, 0.9vw, 16px);
+    line-height: 1.4;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .achievements-header h1 {
+    color: var(--gold-bright);
+
+    font-family: "Unbounded", sans-serif;
+    font-size: clamp(34px, 3vw, 56px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -1px;
+
+    text-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.86),
+      0 0 18px rgba(255, 218, 137, 0.3);
+  }
+
+
+  /* =========================================================
+     СЧЁТЧИК ДОСТИЖЕНИЙ
+  ========================================================= */
+
+  .achievement-counter {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    flex: 0 0 auto;
+
+    min-width: 164px;
+    padding: 15px 19px;
+
+    text-align: center;
+
+    border: 1px solid rgba(239, 198, 112, 0.72);
+    border-radius: 17px 5px 17px 5px;
+
+    background:
+      radial-gradient(
+        circle at 50% 0%,
+        rgba(255, 220, 143, 0.18),
+        transparent 48%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(67, 38, 75, 0.94),
+        rgba(14, 10, 22, 0.98)
+      );
+
+    box-shadow:
+      0 12px 26px rgba(0, 0, 0, 0.34),
+      0 0 16px rgba(239, 198, 112, 0.11),
+      inset 0 1px 0 rgba(255, 255, 255, 0.09);
+
+    transform: translate3d(0, 0, 0);
+
+    transition:
+      transform var(--fast),
+      border-color var(--fast),
+      box-shadow var(--fast);
+  }
+
+  .achievement-counter::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    z-index: -1;
+
+    border: 1px solid rgba(255, 242, 208, 0.13);
+    border-radius: 12px 3px 12px 3px;
+  }
+
+  .achievement-counter::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+
+    top: -40%;
+    left: 50%;
+
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+
+    background: rgba(255, 211, 121, 0.08);
+
+    transform: translateX(-50%);
+    animation: counter-aura 3.8s ease-in-out infinite;
+  }
+
+  @keyframes counter-aura {
+    0%,
+    100% {
+      opacity: 0.45;
+      transform: translateX(-50%) scale(0.86);
+    }
+
+    50% {
+      opacity: 0.9;
+      transform: translateX(-50%) scale(1.12);
+    }
+  }
+
+  .achievement-counter:hover {
+    transform: translate3d(0, -3px, 0);
+    border-color: var(--gold-light);
+
+    box-shadow:
+      0 16px 32px rgba(0, 0, 0, 0.4),
+      0 0 20px rgba(239, 198, 112, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .achievement-counter span {
+    display: block;
+    margin-bottom: 5px;
+
+    color: var(--text-muted);
+
+    font-family: "Russo One", sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.4px;
+  }
+
+  .achievement-counter strong {
+    color: var(--gold-light);
+
+    font-family: "Unbounded", sans-serif;
+    font-size: 23px;
+    line-height: 1;
+
+    text-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.8),
+      0 0 12px rgba(255, 216, 130, 0.3);
+  }
+
+
+  /* =========================================================
+     СЕТКА ДОСТИЖЕНИЙ
+  ========================================================= */
+
+  .achievements-grid {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+
+  /* =========================================================
+     КАРТОЧКИ ДОСТИЖЕНИЙ
+  ========================================================= */
+
+  .achievement-card {
+    --accent-rgb: 238, 197, 113;
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    min-width: 0;
+    min-height: 238px;
+    padding: 18px;
+
+    border: 1px solid rgba(var(--accent-rgb), 0.52);
+    border-radius: var(--radius-card);
+
+    background:
+      radial-gradient(
+        circle at 50% -5%,
+        rgba(var(--accent-rgb), 0.19),
+        transparent 48%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(52, 31, 61, 0.93),
+        rgba(13, 10, 21, 0.97)
+      );
+
+    box-shadow: var(--shadow-card);
+
+    transform: translate3d(0, 0, 0);
+
+    transition:
+      transform var(--normal),
+      border-color var(--fast),
+      box-shadow var(--normal);
+
+    animation: card-enter 500ms ease-out both;
+
+    contain: layout paint style;
+    content-visibility: auto;
+    contain-intrinsic-size: 238px;
+  }
+
+  .achievement-card:nth-child(1) {
+    animation-delay: 120ms;
+  }
+
+  .achievement-card:nth-child(2) {
+    animation-delay: 165ms;
+  }
+
+  .achievement-card:nth-child(3) {
+    animation-delay: 210ms;
+  }
+
+  .achievement-card:nth-child(4) {
+    animation-delay: 255ms;
+  }
+
+  .achievement-card:nth-child(5) {
+    animation-delay: 300ms;
+  }
+
+  .achievement-card:nth-child(6) {
+    animation-delay: 345ms;
+  }
+
+  .achievement-card:nth-child(7) {
+    animation-delay: 390ms;
+  }
+
+  .achievement-card:nth-child(8) {
+    animation-delay: 435ms;
+  }
+
+  .achievement-card:nth-child(9) {
+    animation-delay: 480ms;
+  }
+
+  .achievement-card:nth-child(10) {
+    animation-delay: 525ms;
+  }
+
+  .achievement-card::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 5px;
+    pointer-events: none;
+
+    border: 1px solid rgba(255, 242, 211, 0.12);
+    border-radius: 14px 3px 14px 3px;
+  }
+
+  .achievement-card::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+
+    top: -55%;
+    bottom: -55%;
+    left: -45%;
+    width: 32%;
+
+    pointer-events: none;
+
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.22),
+      transparent
+    );
+
+    transform: translate3d(-220%, 0, 0) rotate(15deg);
+    transition: transform 580ms ease;
+  }
+
+  .achievement-card:hover {
+    transform: translate3d(0, -7px, 0);
+
+    border-color: rgba(var(--accent-rgb), 0.95);
+
+    box-shadow:
+      0 22px 40px rgba(0, 0, 0, 0.44),
+      0 0 22px rgba(var(--accent-rgb), 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .achievement-card:hover::after {
+    transform: translate3d(520%, 0, 0) rotate(15deg);
+  }
+
+  .achievement-top {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-bottom: 18px;
+  }
+
+
+  /* =========================================================
+     ИКОНКА ДОСТИЖЕНИЯ
+  ========================================================= */
+
+  .achievement-icon {
+    position: relative;
+
+    width: 58px;
+    height: 58px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    color: rgb(var(--accent-rgb));
+
+    border: 1px solid rgba(var(--accent-rgb), 0.78);
+
+    background:
+      radial-gradient(
+        circle at 38% 31%,
+        rgba(255, 255, 255, 0.18),
+        rgba(var(--accent-rgb), 0.18) 38%,
+        rgba(11, 8, 17, 0.96) 72%
+      );
+
+    box-shadow:
+      0 0 17px rgba(var(--accent-rgb), 0.2),
+      inset 0 0 16px rgba(0, 0, 0, 0.62);
+
+    transition:
+      transform var(--normal),
+      border-color var(--fast),
+      box-shadow var(--fast);
+  }
+
+  .achievement-icon::before {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border-radius: inherit;
+
+    border: 1px dashed rgba(var(--accent-rgb), 0.22);
+
+    transition: transform 700ms ease;
+  }
+
+  .achievement-card:hover .achievement-icon {
+    transform: scale(1.08) rotate(-4deg);
+
+    border-color: rgba(var(--accent-rgb), 1);
+
+    box-shadow:
+      0 0 24px rgba(var(--accent-rgb), 0.3),
+      inset 0 0 17px rgba(0, 0, 0, 0.6);
+  }
+
+  .achievement-card:hover .achievement-icon::before {
+    transform: rotate(90deg);
+  }
+
+  .achievement-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke-width: 1.9;
+
+    filter: drop-shadow(0 0 6px rgba(var(--accent-rgb), 0.48));
+  }
+
+
+  /* =========================================================
+     КАТЕГОРИЯ
+  ========================================================= */
+
+  .achievement-category {
+    max-width: 58%;
+    overflow: hidden;
+    padding: 6px 10px;
+
+    color: rgba(255, 248, 228, 0.88);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    font-family: "Russo One", sans-serif;
+    font-size: 9px;
+    line-height: 1;
+    letter-spacing: 0.45px;
+    text-transform: uppercase;
+
+    border: 1px solid rgba(var(--accent-rgb), 0.38);
+    border-radius: 999px;
+
+    background: rgba(var(--accent-rgb), 0.1);
+
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+
+  /* =========================================================
+     ТЕКСТ ДОСТИЖЕНИЯ
+  ========================================================= */
+
+  .achievement-card h3 {
+    position: relative;
+    z-index: 2;
+
+    margin-bottom: 10px;
+
+    color: rgb(var(--accent-rgb));
+
+    font-family: "Russo One", sans-serif;
+    font-size: 19px;
+    line-height: 1.25;
+
+    text-shadow:
+      0 2px 7px rgba(0, 0, 0, 0.84),
+      0 0 10px rgba(var(--accent-rgb), 0.22);
+  }
+
+  .achievement-card p {
+    position: relative;
+    z-index: 2;
+
+    color: var(--text-soft);
+
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.55;
+  }
+
+
+  /* =========================================================
+     ЦВЕТА КАТЕГОРИЙ
+  ========================================================= */
+
+  .achievement-card.family {
+    --accent-rgb: 242, 197, 103;
+  }
+
+  .achievement-card.legendary {
+    --accent-rgb: 255, 165, 70;
+  }
+
+  .achievement-card.love {
+    --accent-rgb: 239, 105, 184;
+  }
+
+  .achievement-card.wisdom {
+    --accent-rgb: 104, 183, 255;
+  }
+
+  .achievement-card.energy {
+    --accent-rgb: 255, 222, 151;
+  }
+
+  .achievement-card.memory {
+    --accent-rgb: 192, 117, 246;
+  }
+
+  .achievement-card.clan {
+    --accent-rgb: 85, 215, 198;
+  }
+
+  .achievement-card.magic {
+    --accent-rgb: 174, 94, 226;
+  }
+
+  .achievement-card.health {
+    --accent-rgb: 133, 215, 97;
+  }
+
+  .achievement-card.future {
+    --accent-rgb: 100, 139, 245;
+  }
+
+
+  /* =========================================================
+     АНИМАЦИИ ПОЯВЛЕНИЯ
+  ========================================================= */
+
+  @keyframes page-enter {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes card-enter {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0) scale(0.97);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+
+  /* =========================================================
+     АДАПТИВ — БОЛЬШИЕ ЭКРАНЫ
+  ========================================================= */
+
+  @media (min-width: 1700px) {
+    .achievements-grid {
+      gap: 18px;
+    }
+
+    .achievement-card {
+      min-height: 250px;
+      padding: 20px;
+    }
+  }
+
+
+  /* =========================================================
+     АДАПТИВ — НОУТБУКИ
+  ========================================================= */
+
+  @media (max-width: 1350px) {
+    .top-menu {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .achievements-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .achievement-card {
+      min-height: 220px;
+    }
+  }
+
+
+  /* =========================================================
+     АДАПТИВ — ПЛАНШЕТЫ
+  ========================================================= */
+
+  @media (max-width: 900px) {
+    .screen {
+      padding: 18px;
+    }
+
+    .page-top {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .top-menu {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .achievements-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .achievement-counter {
+      min-width: 150px;
+    }
+
+    .achievements-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+
+  /* =========================================================
+     АДАПТИВ — ТЕЛЕФОНЫ
+  ========================================================= */
+
+  @media (max-width: 560px) {
+    body::after {
+      animation: none;
+    }
+
+    .screen {
+      padding: 12px;
+    }
+
+    .page-top {
+      margin-bottom: 14px;
+    }
+
+    .back-button {
+      min-height: 44px;
+      padding: 10px 17px;
+      font-size: 13px;
+    }
+
+    .top-menu {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .menu-tab {
+      min-height: 56px;
+      justify-content: flex-start;
+      padding-inline: 16px;
+      font-size: 11px;
+    }
+
+    .game-icon {
+      width: 25px;
+      height: 25px;
+    }
+
+    .achievements-page {
+      padding: 18px 14px;
+    }
+
+    .achievements-header {
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 18px;
+    }
+
+    .achievements-header h1 {
+      font-size: clamp(29px, 9vw, 38px);
+    }
+
+    .achievement-counter {
+      width: 100%;
+    }
+
+    .achievements-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .achievement-card {
+      min-height: 0;
+      padding: 16px;
+    }
+
+    .achievement-icon {
+      width: 54px;
+      height: 54px;
+    }
+
+    .achievement-card h3 {
+      font-size: 18px;
+    }
+  }
+
+
+  /* =========================================================
+     УСТРОЙСТВА БЕЗ HOVER
+  ========================================================= */
+
+  @media (hover: none) {
+    .back-button:hover,
+    .menu-tab:hover,
+    .achievement-counter:hover,
+    .achievement-card:hover {
+      transform: none;
+    }
+
+    .back-button:hover::after,
+    .menu-tab:hover::after,
+    .achievement-card:hover::after {
+      transform: translate3d(-220%, 0, 0) rotate(15deg);
+    }
+
+    .achievement-card:hover .achievement-icon {
+      transform: none;
+    }
+
+    .achievement-card:hover .achievement-icon::before {
+      transform: none;
+    }
+  }
+
+
+  /* =========================================================
+     ЭКОНОМИЯ РЕСУРСОВ И ДОСТУПНОСТЬ
+  ========================================================= */
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+
+<body>
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="icon-achievements" viewBox="0 0 64 64">
+      <path d="M32 6l6.3 13.2 14.5 2.1-10.4 10.2 2.5 14.4L32 39.1 19.1 45.9l2.5-14.4L11.2 21.3l14.5-2.1L32 6z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="32" cy="32" r="24" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+    </symbol>
+
+    <symbol id="icon-baggage" viewBox="0 0 64 64">
+      <path d="M18 23h28a6 6 0 0 1 6 6v19a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6V29a6 6 0 0 1 6-6z" fill="none" stroke="currentColor" stroke-width="3"/>
+      <path d="M24 23v-5a8 8 0 0 1 16 0v5" fill="none" stroke="currentColor" stroke-width="3"/>
+      <path d="M12 35h40M23 23v31M41 23v31" fill="none" stroke="currentColor" stroke-width="2" opacity="0.7"/>
+    </symbol>
+
+    <symbol id="icon-skills" viewBox="0 0 64 64">
+      <path d="M14 12h18a10 10 0 0 1 10 10v30H24a10 10 0 0 0-10 0V12z" fill="none" stroke="currentColor" stroke-width="3"/>
+      <path d="M42 18h8v34a10 10 0 0 0-10 0" fill="none" stroke="currentColor" stroke-width="3"/>
+      <path d="M21 23h13M21 31h13M21 39h10" fill="none" stroke="currentColor" stroke-width="2"/>
+    </symbol>
+
+    <symbol id="icon-memories" viewBox="0 0 64 64">
+      <path d="M32 7l8 15 17 3-12 12 3 17-16-8-16 8 3-17L7 25l17-3 8-15z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M32 20v24M20 32h24" fill="none" stroke="currentColor" stroke-width="2" opacity="0.75"/>
+    </symbol>
+
+    <symbol id="icon-clans" viewBox="0 0 64 64">
+      <path d="M32 6l22 9v14c0 14-8.5 23.5-22 29C18.5 52.5 10 43 10 29V15l22-9z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M22 33l7 7 14-17" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-hall" viewBox="0 0 64 64">
+      <path d="M22 10h20v8h10v8c0 8-5 14-13 15-1.5 4-4 7-7 9-3-2-5.5-5-7-9-8-1-13-7-13-15v-8h10v-8z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M24 54h16M20 60h24M22 18v7c0 12 6 18 10 21 4-3 10-9 10-21v-7" fill="none" stroke="currentColor" stroke-width="3"/>
+    </symbol>
+
+    <symbol id="icon-quests" viewBox="0 0 64 64">
+      <path d="M18 8h24l8 8v40H18V8z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M42 8v10h10M25 26h18M25 35h18M25 44h12" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M14 16l-4 4 4 4M14 40l-4 4 4 4" fill="none" stroke="currentColor" stroke-width="2" opacity="0.7"/>
+    </symbol>
+
+    <symbol id="icon-crown" viewBox="0 0 64 64">
+      <path d="M10 22l13 11 9-20 9 20 13-11-5 28H15L10 22z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M17 56h30" fill="none" stroke="currentColor" stroke-width="3"/>
+    </symbol>
+
+    <symbol id="icon-home" viewBox="0 0 64 64">
+      <path d="M8 32L32 12l24 20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M16 30v24h32V30" fill="none" stroke="currentColor" stroke-width="3"/>
+      <path d="M25 54V39h14v15" fill="none" stroke="currentColor" stroke-width="3"/>
+      <path d="M32 30c4 0 7 3 7 7 0-4 3-7 7-7" fill="none" stroke="currentColor" stroke-width="2" opacity="0.7"/>
+    </symbol>
+
+    <symbol id="icon-heart" viewBox="0 0 64 64">
+      <path d="M32 54S10 41 10 24c0-8 6-14 14-14 4 0 7 2 8 5 1-3 4-5 8-5 8 0 14 6 14 14 0 17-22 30-22 30z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-leaf" viewBox="0 0 64 64">
+      <path d="M50 10C28 12 14 25 14 42c0 7 5 12 12 12 17 0 29-18 24-44z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M18 50c8-16 18-26 32-40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="icon-star" viewBox="0 0 64 64">
+      <path d="M32 6l5.5 19L56 32l-18.5 7L32 58l-5.5-19L8 32l18.5-7L32 6z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="icon-magic-heart" viewBox="0 0 64 64">
+      <path d="M32 54S11 42 11 25c0-8 6-14 14-14 4 0 7 2 7 5 0-3 3-5 7-5 8 0 14 6 14 14 0 17-21 29-21 29z" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/>
+      <path d="M32 4v9M32 51v9M4 32h9M51 32h9M12 12l6 6M46 46l6 6M52 12l-6 6M18 46l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    </symbol>
+  </svg>
+
+  <div class="magic-orb orb-1"></div>
+  <div class="magic-orb orb-2"></div>
+  <div class="magic-orb orb-3"></div>
+  <div class="magic-orb orb-4"></div>
+
+  <div class="screen">
+
+    <div class="page-top">
+      <button class="back-button" onclick="goBack()">← Назад</button>
+    </div>
+
+
+    <section class="achievements-page game-panel" id="achievements">
+      <div class="achievements-header">
+        <div>
+          <p class="small-label">РАЗДЕЛ ПЕРСОНАЖА</p>
+          <h1>Ваши достижения</h1>
+        </div>
+
+        <div class="achievement-counter">
+          <span>ОТКРЫТО</span>
+          <strong>10 / 10</strong>
+        </div>
+      </div>
+
+      <div class="achievements-grid">
+
+        <article class="achievement-card family">
+          <div class="achievement-top">
+            <div class="achievement-icon">
+              <svg><use href="#icon-home"></use></svg>
+            </div>
+            <span class="achievement-category">Семья</span>
+          </div>
+
+          <h3>Хранительница порядка</h3>
+          <p>
+            Создала вокруг себя место, где (почти) всегда спокойствие и порядок.
+          </p>
+        </article>
+
+        <article class="achievement-card legendary">
+          <div class="achievement-top">
+            <div class="achievement-icon">
+              <svg><use href="#icon-crown"></use></svg>
+            </div>
+            <span class="achievement-category">Легендарное</span>
+          </div>
+
+          <h3>Дипломированный специалист</h3>
+          <p>
+            Получено за годы упорного (иногда коллективного) труда для освоения новой профессии.
+          </p>
+        </article>
+
+        <article class="achievement-card love">
+          <div class="achievement-top">
+            <div class="achievement-icon">
+              <svg><use href="#icon-heart"></use></svg>
+            </div>
+            <span class="achievement-category">Любовь</span>
+          </div>
+
+          <h3>Сердце Семьи</h3>
+          <p>
+            Уникальная способность — объединять близких и делать каждый день теплее.
+          </p>
+        </article>
+
+        <article class="achievement-card wisdom">
+          <div class="achievement-top">
+            <div class="achievement-icon">
+              <svg><use href="#icon-skills"></use></svg>
+            </div>
+            <span class="achievement-category">Мудрость</span>
+          </div>
+
+          <h3>Мудрый Совет</h3>
+          <p>
+            Всегда находит нужные слова, когда другим нужна поддержка и направление.
+          </p>
+        </article>
+
+        <article class="achievement-card energy">
+          <div class="achievement-top">
+            <div class="achievement-icon">
+              <svg><use href="#icon-star"></use></svg>
+            </div>
+            <span class="achievement-category">Мода</span>
+          </div>
+
+          <h3>Фэшн бомба</h3>
+          <p>
+            Составляет самые модные образы, что достойны показов.
+          </p>
+        </article>
+
+        <article class="achievement-card memory">
+          <div class="achievement-top">
+            <div class="achievement-icon">
+              <svg><use href="#icon-memories"></use></svg>
+            </div>
+            <span class="achievement-category">Воспоминания</span>
+          </div>
+
+          <h3>Хранительница Историй</h3>
+          <p>
+            Найдет жизненную историю на любой повод или рассказ.
+          </p>
+        </article>
+
+        <article class="achievement-card clan">
+          <div class="achievement-top">
+            <div class="achievement-icon">
+              <svg><use href="#icon-clans"></use></svg>
+            </div>
+            <span class="achievement-category">Кулинария</span>
+          </div>
+
+          <h3>100 звезд мишлен</h3>
+          <p>
+            Готовит только самые изысканные блюда и десерты, что достойны всех похвал и восторга.
+          </p>
+        </article>
+
+        <article class="achievement-card magic">
+          <div class="achievement-top">
+            <div class="achievement-icon">
+              <svg><use href="#icon-magic-heart"></use></svg>
+            </div>
+            <span class="achievement-category">Магия</span>
+          </div>
+
+          <h3>Аура Заботы</h3>
+          <p>
+            Пассивный навык: рядом становится уютнее, светлее и легче на душе.
+          </p>
+        </article>
+
+        <article class="achievement-card health">
+          <div class="achievement-top">
+            <div class="achievement-icon">
+              <svg><use href="#icon-leaf"></use></svg>
+            </div>
+            <span class="achievement-category">Здоровье</span>
+          </div>
+
+          <h3>Профессиональный лекарь</h3>
+          <p>
+            Поставит на ноги любого дохляка всего за пару дней.
+          </p>
+        </article>
+
+        <article class="achievement-card future">
+          <div class="achievement-top">
+            <div class="achievement-icon">
+              <svg><use href="#icon-quests"></use></svg>
+            </div>
+            <span class="achievement-category">Социализация</span>
+          </div>
+
+          <h3>Топ-переговорщик</h3>
+          <p>
+            Способна договориться о необходимой задаче и уболтать любого человека этого мира.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "index.html";
+      }
+    }
+  </script>
+</body>
+</html>
